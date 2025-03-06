@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Livrai - Nouvelle Livraison</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+    <!-- Inclusion de la barre de navigation -->
+    <div th:insert="~{navbar :: navbar}"></div>
+
+    <h1>Nouvelle Livraison</h1>
+    <form method="post" action="/command">
+        <label for="volume">Volume :</label><br>
+        <input type="number" id="volume" name="volume" required><br>
+
+        <label for="weight">Poids :</label><br>
+        <input type="number" id="weight" name="weight" required><br>
+
+        <input class="button" type="submit" value="Commander">
+    </form>
+
+</body>
+</html>

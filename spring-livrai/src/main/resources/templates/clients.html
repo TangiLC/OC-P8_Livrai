@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Livrai - Clients</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+
+    <!-- Inclusion de la barre de navigation -->
+    <div th:insert="~{navbar :: navbar}"></div>
+
+    <h1>Clients</h1>
+
+    <th:block th:if="${#lists.isEmpty(clients)}">
+        <p>Aucun client</p>
+    </th:block>
+
+    <th:block th:unless="${#lists.isEmpty(clients)}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="client : ${clients}">
+                    <td th:text="${client.id}"></td>
+                    <td th:text="${client.name}"></td>
+                    <td th:text="${client.email}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </th:block>
+
+    <h2 style="margin-top: 100px;">Ajouter un nouveau client</h2>
+    <form method="post" action="/clients">
+        <label for="email">Email :</label><br>
+        <input type="text" id="email" name="email" required><br>
+
+        <label for="name">Nom :</label><br>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="password">Mot de passe :</label><br>
+        <input type="password" id="password" name="password" required><br>
+
+        <input class="button" type="submit" value="Ajouter">
+    </form>
+
+</body>
+
+</html>

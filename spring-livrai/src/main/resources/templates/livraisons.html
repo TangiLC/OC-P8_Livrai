@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Livrai - Mes Livraisons</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+
+    <!-- Inclusion de la barre de navigation -->
+    <div th:insert="~{navbar :: navbar}"></div>
+
+    <h1>Mes livraisons à venir</h1>
+
+    <th:block th:if="${#lists.isEmpty(upcomingDeliveries)}">
+        <p>Aucune livraison à venir</p>
+    </th:block>
+
+    <th:block th:unless="${#lists.isEmpty(upcomingDeliveries)}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th th:if="${not #strings.isEmpty(delivery.clientName)}">Client</th>
+                    <th>Volume</th>
+                    <th>Poids</th>
+                    <th>Statut</th>
+                    <th th:if="${admin}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="delivery : ${upcomingDeliveries}">
+                    <td th:text="${delivery.id}"></td>
+                    <td th:if="${not #strings.isEmpty(delivery.clientName)}" th:text="${delivery.clientName}"></td>
+                    <td th:text="${delivery.volume}"></td>
+                    <td th:text="${delivery.weight}"></td>
+                    <td th:text="${delivery.status}"></td>
+
+                    <td th:if="${admin}">
+                        <th:block th:if="${delivery.status == 'En attente'}">
+                            <form method="post" action="/livraisons">
+                                <input type="hidden" name="id" th:value="${delivery.id}" />
+                                <input type="hidden" name="action" value="ACCEPT" />
+                                <input type="submit" value="Accepter">
+                            </form>
+                            <form method="post" action="/livraisons">
+                                <input type="hidden" name="id" th:value="${delivery.id}" />
+                                <input type="hidden" name="action" value="REJECT" />
+                                <input type="submit" value="Refuser">
+                            </form>
+                        </th:block>
+
+                        <th:block th:if="${delivery.status == 'Acceptée'}">
+                            <form method="post" action="/livraisons">
+                                <input type="hidden" name="id" th:value="${delivery.id}" />
+                                <input type="hidden" name="action" value="BILL" />
+                                <input type="number" name="price" required />
+                                <input type="submit" value="Facturer">
+                            </form>
+                        </th:block>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </th:block>
+
+    <h1>Mes livraisons passées</h1>
+
+    <th:block th:if="${#lists.isEmpty(pastDeliveries)}">
+        <p>Aucune livraison terminée</p>
+    </th:block>
+
+    <th:block th:unless="${#lists.isEmpty(pastDeliveries)}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th th:if="${not #strings.isEmpty(delivery.clientName)}">Client</th>
+                    <th>Volume</th>
+                    <th>Poids</th>
+                    <th>Prix</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="delivery : ${pastDeliveries}">
+                    <td th:text="${delivery.id}"></td>
+                    <td th:if="${not #strings.isEmpty(delivery.clientName)}" th:text="${delivery.clientName}"></td>
+                    <td th:text="${delivery.volume}"></td>
+                    <td th:text="${delivery.weight}"></td>
+                    <td th:text="${delivery.price}"></td>
+                    <td th:text="${delivery.status}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </th:block>
+
+</body>
+
+</html>

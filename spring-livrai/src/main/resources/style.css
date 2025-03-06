@@ -1,0 +1,29 @@
+@charset "UTF-8";
+nav {
+	background-color: purple;
+}
+
+.nav-link {
+	color: white;
+	font-weight: bold;
+	margin-top: 10px;
+	font-size: 40px;
+	margin-left: 10px;
+}
+
+.nav-link-pull-right {
+	margin-left: 100px;
+	font-size: 20px;
+}
+
+.button {
+	background-color: purple;
+	color: white;
+	margin: 10px;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
