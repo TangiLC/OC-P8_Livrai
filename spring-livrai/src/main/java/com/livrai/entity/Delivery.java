@@ -46,4 +46,6 @@ public class Delivery {
 
   @Transient
   private String clientName; // Non stocké en base, peut être calculé à partir d'une relation
+
+  
 }

@@ -1,8 +1,7 @@
 <nav th:fragment="navbar">
-    <a class="nav-link" href="/">Accueil</a>
-
+   
     <th:block sec:authorize="hasRole('ADMIN')">
-        <a class="nav-link" href="/admin/clients">Clients</a>
+        <a class="nav-link" href="/clients">Clients</a>
     </th:block>
 
     <th:block sec:authorize="!hasRole('ADMIN')">

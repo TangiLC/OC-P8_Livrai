@@ -1,5 +1,6 @@
 package com.livrai.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -12,6 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
+  @Autowired
+  private CustomAuthenticationSuccessHandler successHandler;
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http)
@@ -30,9 +34,9 @@ public class SecurityConfig {
       .formLogin(form ->
         form
           .loginPage("/login")
-          .usernameParameter("email") // Pour correspondre à votre formulaire existant
+          .usernameParameter("email")
           .passwordParameter("password")
-          .defaultSuccessUrl("/", true)
+          .successHandler(successHandler)
           .permitAll()
       )
       .logout(logout ->
@@ -44,8 +48,6 @@ public class SecurityConfig {
           .permitAll()
       );
     return http.build();
-
-    
   }
 
   @Bean

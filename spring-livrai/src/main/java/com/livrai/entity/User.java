@@ -38,7 +38,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "is_admin", nullable = false)
+    @Column(name = "admin", nullable = false)
     private boolean isAdmin;
 
     @Override
